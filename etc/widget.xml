@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Klevu\FrontendRecommendations\Block\Widget\Recommendations" id="klevu-recommendations">
+        <label>Klevu Recommendations</label>
+        <description>Display Klevu Recommendations</description>
+        <parameters>
+            <parameter name="klevu_recs_id" sort_order="10" visible="true" required="true" xsi:type="text">
+                <label>Klevu Recommendations ID</label>
+            </parameter>
+            <parameter name="klevu_recs_title" sort_order="20" visible="true" xsi:type="text">
+                <label>Block Title</label>
+            </parameter>
+            <parameter name="klevu_dynamic_block" sort_order="30" visible="true" required="true" xsi:type="select">
+                <label>Is Dynamic Block</label>
+                <options>
+                    <option name="yes" value="1">
+                        <label>Yes</label>
+                    </option>
+                    <option name="no" value="0" selected="true">
+                        <label>No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label>Template</label>
+                <options>
+                    <option name="default"
+                            value="widget/recommendations.phtml"
+                            selected="true">
+                        <label translate="true">Klevu Recommendations Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

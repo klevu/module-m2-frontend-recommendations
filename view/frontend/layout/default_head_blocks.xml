@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- Copyright © Klevu Oy. All rights reserved. See LICENSE.txt for license details. -->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="1column">
+    <body>
+        <referenceBlock name="head.additional">
+            <block name="Klevu_FrontendRecommendations.js_includes.recommendations"
+                   template="Klevu_Frontend::html/head/js_includes.phtml"
+                   before="-"
+                   after="Klevu_Frontend.js_settings">
+                <arguments>
+                    <argument name="js_includes_view_model"
+                              xsi:type="object">Klevu\FrontendRecommendations\ViewModel\Html\Head\JsIncludesCategory</argument>
+                    <argument name="escaper_view_model"
+                              xsi:type="object">Klevu\Frontend\ViewModel\Escaper</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

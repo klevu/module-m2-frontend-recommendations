@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<!-- Copyright © Klevu Oy. All rights reserved. See LICENSE.txt for license details. -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="Klevu\FrontendRecommendations\Service\Provider\RecommendationsEnabledProvider"
+                 type="Klevu\Frontend\Service\Provider\SettingsProvider">
+        <arguments>
+            <argument name="configSettingPath"
+                      xsi:type="string"><![CDATA[klevu_frontend/recommendations/enabled]]></argument>
+            <argument name="returnType"
+                      xsi:type="const">Klevu\Frontend\Model\Config\Source\KlevuCustomOptionsTypeSource::TYPE_VALUE_BOOLEAN</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition">
+        <arguments>
+            <argument name="recommendationsEnabledProvider"
+                      xsi:type="object">Klevu\FrontendRecommendations\Service\Provider\RecommendationsEnabledProvider</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Klevu\FrontendRecommendations\ViewModel\Html\Head\JsIncludesCategory"
+                 type="Klevu\Frontend\ViewModel\Html\Head\JsIncludes">
+        <arguments>
+            <argument name="jsIncludes" xsi:type="array">
+                <item name="recommendations" xsi:type="array">
+                    <item name="before" xsi:type="string">-</item>
+                    <item name="provider"
+                          xsi:type="object">Klevu\Frontend\Service\Provider\Urls\JsUrlProvider</item>
+                    <item name="path" xsi:type="string"><![CDATA[recs/v2/klevu-recs.js]]></item>
+                    <item name="is_enabled_conditions" xsi:type="array">
+                        <item name="klevu_integrated"
+                              xsi:type="object">Klevu\Frontend\Service\IsEnabledCondition\IsStoreIntegratedCondition</item>
+                        <item name="klevu_recs_enabled"
+                              xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Klevu\Frontend\ViewModel\Html\Head\JsIncludesCore"
+                 type="Klevu\Frontend\ViewModel\Html\Head\JsIncludes">
+        <arguments>
+            <argument name="jsIncludes" xsi:type="array">
+                <item name="core" xsi:type="array">
+                    <item name="is_enabled_conditions" xsi:type="array">
+                        <item name="klevu_modules_enabled" xsi:type="array">
+                            <item name="klevu_recs_enabled"
+                                  xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Klevu\Frontend\Service\Provider\Layout\RelLinkProvider">
+        <arguments>
+            <argument name="links" xsi:type="array">
+                <item name="preconnect_klevu_core" xsi:type="array">
+                    <item name="is_enabled_conditions" xsi:type="array">
+                        <item name="klevu_modules_enabled" xsi:type="array">
+                            <item name="klevu_recs_enabled"
+                                  xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Frontend\Service\KlevuSettingsBuilder">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Frontend\ViewModel\Html\Head\AddToCart">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Frontend\ViewModel\CurrencyConversion">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Klevu\Frontend\ViewModel\VisibilityFilter">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
