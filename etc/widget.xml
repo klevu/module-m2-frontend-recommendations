@@ -7,30 +7,52 @@
         <parameters>
             <parameter name="klevu_recs_id" sort_order="10" visible="true" required="true" xsi:type="text">
                 <label>Klevu Recommendations ID</label>
+                <description>
+                    <![CDATA[
+                        The recommendations ID can be found in KMC.<br/>
+                        1. View the integration steps for the banner.<br/>
+                        2. Copy the <code>id</code> from the provided code, e.g.
+                        <code>&ltdiv class="klevu-recs" id="k-a123b45c-copy-this-code-6789d01e23f4"&gt&lt/div&gt</code>
+                    ]]>
+                </description>
             </parameter>
             <parameter name="klevu_recs_title" sort_order="20" visible="true" xsi:type="text">
                 <label>Block Title</label>
+                <description>
+                    <![CDATA[
+                        <strong>Optional:</strong> A title can also be set in KMC. It is not advised to do both.<br/>
+                        This block title could be used to accommodate different language titles per store,
+                        while still using the same recommendations banner content from KMC
+                        (assuming the stores use the same API key).
+                    ]]>
+                </description>
             </parameter>
-            <parameter name="klevu_dynamic_block" sort_order="30" visible="true" required="true" xsi:type="select">
-                <label>Is Dynamic Block</label>
-                <options>
-                    <option name="yes" value="1">
-                        <label>Yes</label>
-                    </option>
-                    <option name="no" value="0" selected="true">
-                        <label>No</label>
-                    </option>
-                </options>
-            </parameter>
-            <parameter name="template" xsi:type="select" required="true" visible="true">
+            <parameter name="template" xsi:type="select" sort_order="30" required="true" visible="true">
                 <label>Template</label>
                 <options>
                     <option name="default"
                             value="widget/recommendations.phtml"
                             selected="true">
-                        <label translate="true">Klevu Recommendations Template</label>
+                        <label translate="true">Default</label>
+                    </option>
+                    <option name="hyva"
+                            value="widget/hyva/recommendations.phtml">
+                        <label translate="true">Hyvä Themes</label>
                     </option>
                 </options>
+            </parameter>
+            <parameter name="klevu_dynamic_block" sort_order="40" visible="true" required="true" xsi:type="select"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Requires Power up</label>
+                <description>
+                    <![CDATA[
+                        Yes: If there are multiple recommendations banners on the page or the recommendations banner
+                        is loaded in a dynamic block (which are loaded after page load).<br/>
+                        No: If there is only one recommendations banner on the page and that banner is not
+                        contained within a dynamic block.<br/>
+                        <strong>For Hyvä Themes this setting is not used.</strong>
+                    ]]>
+                </description>
             </parameter>
         </parameters>
     </widget>

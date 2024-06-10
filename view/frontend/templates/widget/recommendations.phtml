@@ -7,37 +7,42 @@
 declare(strict_types=1);
 
 use Klevu\FrontendRecommendations\Block\Widget\Recommendations;
+use Magento\Framework\Escaper;
 
 /**
  * @var Recommendations $block
+ * @var Escaper $escaper
  */
-$title = trim($block->escapeHtml($block->getData('klevu_recs_title')));
+$title = trim($block->getData('klevu_recs_title'));
 $isDynamicBlock = (bool)$block->getData('klevu_dynamic_block');
-$recsId = $block->escapeHtml($block->getData('klevu_recs_id'));
+$recsId = $block->getData('klevu_recs_id');
 ?>
-<div class="klevu-recs-container">
-    <?php if (/*@noEscape*/ $title): ?>
-        <div>
-            <strong>
-                <?= /*@noEscape*/ $title ?>
-            </strong>
-        </div>
-    <?php endif; ?>
-    <?php if (/*@noEscape*/ $isDynamicBlock): ?>
-        <div class="klevu-recs"
-             id="<?= /*@noEscape*/ $recsId ?>"
-             data-bind="afterRender: function(recsTargetElement) {
-                if ('undefined' !== typeof klevu && 'undefined' === typeof recsTargetElement.recsObject) {
-                    let myRecsbox = klevu.recs.clone({
-                        recId: recsTargetElement.id,
-                        apiKey: klevu.getGlobalSetting('recs.apiKey', klevu.getGlobalSetting('global.apiKey')),
-                        element: recsTargetElement
-                    });
-                    myRecsbox.powerUp();
-                }
-            }">
-        </div>
-    <?php else: ?>
-        <div class="klevu-recs" id="<?= /*@noEscape*/ $recsId ?>"></div>
-    <?php endif; ?>
-</div>
+
+<?php if ($recsId): ?>
+    <div class="klevu-recs-container">
+        <?php if ($title): ?>
+            <div>
+                <strong>
+                    <?= $escaper->escapeHtml($title) ?>
+                </strong>
+            </div>
+        <?php endif; ?>
+        <?php if ($isDynamicBlock): ?>
+            <div class="klevu-recs"
+                 id="<?= $escaper->escapeHtmlAttr($recsId) ?>"
+                 data-bind="afterRender: function(recsTargetElement) {
+                    if ('undefined' !== typeof klevu && 'undefined' === typeof recsTargetElement.recsObject) {
+                        let myRecsbox = klevu.recs.clone({
+                            recId: recsTargetElement.id,
+                            apiKey: klevu.getGlobalSetting('recs.apiKey', klevu.getGlobalSetting('global.apiKey')),
+                            element: recsTargetElement
+                        });
+                        myRecsbox.powerUp();
+                    }
+                }">
+            </div>
+        <?php else: ?>
+            <div class="klevu-recs" id="<?= $escaper->escapeHtmlAttr($recsId) ?>"></div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
