@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Copyright © Klevu Oy. All rights reserved. See LICENSE.txt for license details.
+ */
+
+declare(strict_types=1);
+
+use Klevu\FrontendRecommendations\Block\Widget\Recommendations;
+use Magento\Framework\Escaper;
+
+/**
+ * @var Recommendations $block
+ * @var Escaper $escaper
+ */
+$title = trim($block->getData('klevu_recs_title'));
+$recsId = $block->getData('klevu_recs_id');
+?>
+
+<?php if ($recsId): ?>
+    <div class="klevu-recs-container">
+        <?php if ($title): ?>
+            <div>
+                <strong>
+                    <?= $escaper->escapeHtml($title) ?>
+                </strong>
+            </div>
+        <?php endif; ?>
+        <div class="klevu-recs"
+             id="<?= $escaper->escapeHtmlAttr($recsId) ?>"
+             x-init="$nextTick(() => {
+                if ('undefined' !== typeof klevu && 'undefined' === typeof $el.recsObject) {
+                    let myRecsbox = klevu.recs.clone({
+                        recId: $el.id,
+                        apiKey: klevu.getGlobalSetting('recs.apiKey', klevu.getGlobalSetting('global.apiKey')),
+                        element: $el
+                    });
+                    myRecsbox.powerUp();
+                }
+            })">
+        </div>
+    </div>
+<?php endif; ?>
