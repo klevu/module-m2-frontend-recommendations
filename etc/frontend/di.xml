@@ -75,6 +75,12 @@
 
     <type name="Klevu\Frontend\Service\KlevuSettingsBuilder">
         <arguments>
+            <argument name="klevuSettings" xsi:type="array">
+                <item name="powerUp" xsi:type="array">
+                    <item name="recsModule"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\Provider\RecommendationsPowerUpProvider</item>
+                </item>
+            </argument>
             <argument name="isEnabledConditions" xsi:type="array">
                 <item name="klevu_modules_enabled" xsi:type="array">
                     <item name="klevu_recs_enabled"
@@ -116,4 +122,49 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Klevu\Frontend\ViewModel\CustomerGroupSuffix">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Klevu\FrontendRecommendations\Service\Provider\RecommendationsPowerUpProvider"
+                 type="Klevu\Frontend\Service\Provider\PowerUpProvider">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+            </argument>
+            <argument name="delayPowerUpConditions" xsi:type="array">
+                <item name="delay_power_up_any_condition" xsi:type="array">
+                    <item name="is_group_pricing_enabled"
+                          xsi:type="object">Klevu\Frontend\Service\DelayPowerUpCondition\IsCustomerGroupPricingEnabledCondition</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Klevu\FrontendRecommendations\ViewModel\Html\Head\CustomerGroupSuffix"
+                 type="Klevu\Frontend\ViewModel\Html\Head\CustomerGroupSuffix">
+        <arguments>
+            <argument name="isEnabledConditions" xsi:type="array">
+                <item name="klevu_integrated"
+                      xsi:type="object">Klevu\Frontend\Service\IsEnabledCondition\IsStoreIntegratedCondition</item>
+                <item name="klevu_modules_enabled" xsi:type="array">
+                    <item name="klevu_recs_enabled"
+                          xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>
+                </item>
+                <item name="klevu_group_pricing_enabled"
+                      xsi:type="object">Klevu\Frontend\Service\IsEnabledCondition\IsCustomerGroupPriceEnabledCondition</item>
+            </argument>
+        </arguments>
+    </virtualType>
 </config>

@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * Copyright © Klevu Oy. All rights reserved. See LICENSE.txt for license details.
+ */
+
+declare(strict_types=1);
+
+use Klevu\Frontend\ViewModel\Html\Head\CustomerGroupSuffix;
+use Klevu\Frontend\ViewModel\Escaper;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
+/**
+ * @var Template $block
+ * @var CustomerGroupSuffix $customerGroupSuffixViewModel
+ * @var Escaper $escaperViewModel
+ * @var SecureHtmlRenderer $secureRenderer
+ */
+$customerGroupSuffixViewModel = $block->getCustomerGroupSuffixViewModel();
+$escaperViewModel = $block->getEscaperViewModel();
+$escaper = $escaperViewModel->getEscaper();
+?>
+
+<?php if ($customerGroupSuffixViewModel->isEnabled()): ?>
+    <?php
+    $scriptString = <<<script
+    klevu.settings.chains.initChain.add({
+        name: 'addPriceSuffixToRecsQuery',
+        fire: function (data) {
+            if (klevu.getObjectPath(klevu.recs, 'base', false)
+                && klevu.getGlobalSetting('flags.addPriceSuffixToQuery.recsModule', false)
+                && typeof klevu_addPriceSuffixToQueryControl === 'object'
+            ) {
+                klevu.search.base.getScope().chains.request.control.addAfter(
+                    'initRequest',
+                    klevu_addPriceSuffixToQueryControl
+                );
+                klevu.setObjectPath(data, 'flags.addPriceSuffixToQuery.recsModule', false);
+            }
+        }
+    });
+    let recsSettingsUpdate = {};
+
+script;
+    ?>
+    <?php if ($customerGroupSuffixViewModel->isPowerUpRequired()): ?>
+        <?php
+        $scriptString .= <<<script
+        klevu.setObjectPath(recsSettingsUpdate, 'powerUp.recsModule',  true);
+
+script;
+        ?>
+    <?php endif; ?>
+    <?php
+    $scriptString .= <<<script
+    document.addEventListener(
+        '{$escaper->escapeJs($customerGroupSuffixViewModel->getCustomerDataLoadErrorEventName())}',
+        function () {
+            klevu(recsSettingsUpdate);
+        }
+    );
+    document.addEventListener(
+        '{$escaper->escapeJs($customerGroupSuffixViewModel->getCustomerDataLoadedEventName()) }',
+        function () {
+            klevu.setObjectPath(recsSettingsUpdate, 'flags.addPriceSuffixToQuery.recsModule',  true);
+            klevu(recsSettingsUpdate);
+        }
+    );
+
+script;
+    ?>
+    <?php
+    $script = <<<script
+    window._klvReady = window._klvReady || [];
+    window._klvReady.push(function() {
+        {$scriptString}
+    });
+
+script;
+    ?>
+    <?= $secureRenderer->renderTag(
+        tagName: 'script',
+        attributes: ['type' => 'text/javascript', 'id' => 'klevu_price_suffix_recs'],
+        content: $script,
+        textContent: false
+    ) ?>
+<?php endif; ?>

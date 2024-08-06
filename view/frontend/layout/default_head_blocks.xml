@@ -6,7 +6,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
       layout="1column">
     <body>
-        <referenceBlock name="head.additional">
+        <referenceContainer name="Klevu_Frontend.head.additional">
             <block name="Klevu_FrontendRecommendations.js_includes.recommendations"
                    template="Klevu_Frontend::html/head/js_includes.phtml"
                    before="-"
@@ -18,6 +18,19 @@
                               xsi:type="object">Klevu\Frontend\ViewModel\Escaper</argument>
                 </arguments>
             </block>
-        </referenceBlock>
+
+            <block name="Klevu_FrontendRecommendations.customer_group_suffix"
+                   template="Klevu_FrontendRecommendations::html/head/customer_group_suffix.phtml"
+                   before="Klevu_Frontend.session_data"
+                   after="Klevu_Frontend.js_includes">
+                <arguments>
+                    <argument name="customer_group_suffix_view_model"
+                              xsi:type="object">Klevu\FrontendRecommendations\ViewModel\Html\Head\CustomerGroupSuffix</argument>
+                    <argument name="escaper_view_model"
+                              xsi:type="object">Klevu\Frontend\ViewModel\Escaper</argument>
+                </arguments>
+            </block>
+
+        </referenceContainer>
     </body>
 </page>

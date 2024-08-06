@@ -13,7 +13,7 @@ use Magento\Framework\Escaper;
  * @var Recommendations $block
  * @var Escaper $escaper
  */
-$title = trim($block->getData('klevu_recs_title'));
+$title = trim($block->getData('klevu_recs_title') ?? '');
 $recsId = $block->getData('klevu_recs_id');
 ?>
 
