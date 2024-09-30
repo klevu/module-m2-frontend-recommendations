@@ -22,11 +22,11 @@
         </arguments>
     </type>
 
-    <virtualType name="Klevu\FrontendRecommendations\ViewModel\Html\Head\JsIncludesCategory"
+    <virtualType name="Klevu\FrontendRecommendations\ViewModel\Html\Head\JsIncludesRecommendations"
                  type="Klevu\Frontend\ViewModel\Html\Head\JsIncludes">
         <arguments>
             <argument name="jsIncludes" xsi:type="array">
-                <item name="recommendations" xsi:type="array">
+                <item name="klevu_recommendations" xsi:type="array">
                     <item name="before" xsi:type="string">-</item>
                     <item name="provider"
                           xsi:type="object">Klevu\Frontend\Service\Provider\Urls\JsUrlProvider</item>
@@ -46,7 +46,7 @@
                  type="Klevu\Frontend\ViewModel\Html\Head\JsIncludes">
         <arguments>
             <argument name="jsIncludes" xsi:type="array">
-                <item name="core" xsi:type="array">
+                <item name="klevu_core" xsi:type="array">
                     <item name="is_enabled_conditions" xsi:type="array">
                         <item name="klevu_modules_enabled" xsi:type="array">
                             <item name="klevu_recs_enabled"
@@ -156,8 +156,6 @@
                  type="Klevu\Frontend\ViewModel\Html\Head\CustomerGroupSuffix">
         <arguments>
             <argument name="isEnabledConditions" xsi:type="array">
-                <item name="klevu_integrated"
-                      xsi:type="object">Klevu\Frontend\Service\IsEnabledCondition\IsStoreIntegratedCondition</item>
                 <item name="klevu_modules_enabled" xsi:type="array">
                     <item name="klevu_recs_enabled"
                           xsi:type="object">Klevu\FrontendRecommendations\Service\IsEnabledCondition\IsRecommendationsEnabledCondition</item>

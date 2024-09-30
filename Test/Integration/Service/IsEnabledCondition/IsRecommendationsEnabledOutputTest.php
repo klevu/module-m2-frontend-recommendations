@@ -27,13 +27,13 @@ class IsRecommendationsEnabledOutputTest extends AbstractController
     use WebsiteTrait;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $uri = 'cms/index/index'; // home page
+    private ?string $uri = 'cms/index/index'; // home page
     /**
-     * @var string
+     * @var string|null
      */
-    private string $pattern = '#<script[.\s]*type="text&\#x2F;javascript"[.\s]*src="https&\#x3A;&\#x2F;&\#x2F;js\.klevu\.com&\#x2F;recs&\#x2F;v2&\#x2F;klevu-recs\.js"[.\s]*>[.\s]*</script>#'; // phpcs:ignore Generic.Files.LineLength.TooLong
+    private ?string $pattern = '#<script[.\s]*type="text&\#x2F;javascript"[.\s]*id="klevu_recommendations"[.\s]*src="https&\#x3A;&\#x2F;&\#x2F;js\.klevu\.com&\#x2F;recs&\#x2F;v2&\#x2F;klevu-recs\.js"[.\s]*>[.\s]*</script>#'; // phpcs:ignore Generic.Files.LineLength.TooLong
     /**
      * @var ObjectManagerInterface|null
      */
@@ -174,7 +174,7 @@ class IsRecommendationsEnabledOutputTest extends AbstractController
     public function test_RecsJs_IsIncluded_WhenWebsiteIntegrated_RecsEnabled(): void
     {
         $this->markTestSkipped('Skip until website integration is ready');
-        $this->createWebsite();
+        $this->createWebsite(); // @phpstan-ignore-line
         $websiteFixture = $this->websiteFixturesPool->get('test_website');
         $this->createStore([
             'website_id' => $websiteFixture->getId(),
