@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * Copyright © Klevu Oy. All rights reserved. See LICENSE.txt for license details.
+ */
+
+declare(strict_types=1);
+
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
+/**
+ * @var SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php $styleString = <<<style
+.klevu-recs {min-height: 356px;}
+style;
+?>
+
+<?= /* @noEscape */ $secureRenderer->renderTag(
+    tagName: 'style',
+    attributes: [
+        'type' => 'text/css',
+    ],
+    content: $styleString,
+    textContent: false,
+) ?>

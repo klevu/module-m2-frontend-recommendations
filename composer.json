@@ -2,16 +2,16 @@
     "name": "klevu/module-m2-frontend-recommendations",
     "description": "",
     "require": {
-        "php": "~8.1.0|~8.2.0",
+        "php": "~8.1.0|~8.2.0|~8.3.0",
         "psr/log": "*",
-        "klevu/module-m2-frontend-api": "0.4.0",
+        "klevu/module-m2-frontend-api": "^1.0.0",
         "magento/module-backend": "^102.0.4",
         "magento/module-config": "^101.2.4",
         "magento/framework": "^103.0.4",
         "magento/module-widget": "^101.2.4"
     },
     "type": "magento2-module",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "license": [
         "MIT"
     ],

@@ -13,7 +13,7 @@
                    after="Klevu_Frontend.js_settings">
                 <arguments>
                     <argument name="js_includes_view_model"
-                              xsi:type="object">Klevu\FrontendRecommendations\ViewModel\Html\Head\JsIncludesCategory</argument>
+                              xsi:type="object">Klevu\FrontendRecommendations\ViewModel\Html\Head\JsIncludesRecommendations</argument>
                     <argument name="escaper_view_model"
                               xsi:type="object">Klevu\Frontend\ViewModel\Escaper</argument>
                 </arguments>
