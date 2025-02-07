@@ -24,7 +24,7 @@ $escaper = $escaperViewModel->getEscaper();
 
 <?php if ($customerGroupSuffixViewModel->isEnabled()): ?>
     <?php
-    $scriptString = <<<script
+    $scriptString = "
     klevu.settings.chains.initChain.add({
         name: 'addPriceSuffixToRecsQuery',
         fire: function (data) {
@@ -41,19 +41,17 @@ $escaper = $escaperViewModel->getEscaper();
         }
     });
     let recsSettingsUpdate = {};
-
-script;
+    ";
     ?>
     <?php if ($customerGroupSuffixViewModel->isPowerUpRequired()): ?>
         <?php
-        $scriptString .= <<<script
-        klevu.setObjectPath(recsSettingsUpdate, 'powerUp.recsModule',  true);
-
-script;
+        $scriptString .= "
+        klevu.setObjectPath(recsSettingsUpdate, 'powerUp.recsModule', true);
+        ";
         ?>
     <?php endif; ?>
     <?php
-    $scriptString .= <<<script
+    $scriptString .= "
     document.addEventListener(
         '{$escaper->escapeJs($customerGroupSuffixViewModel->getCustomerDataLoadErrorEventName())}',
         function () {
@@ -67,17 +65,15 @@ script;
             klevu(recsSettingsUpdate);
         }
     );
-
-script;
+    ";
     ?>
     <?php
-    $script = <<<script
+    $script = "
     window._klvReady = window._klvReady || [];
     window._klvReady.push(function() {
         {$scriptString}
     });
-
-script;
+    ";
     ?>
     <?= $secureRenderer->renderTag(
         tagName: 'script',
