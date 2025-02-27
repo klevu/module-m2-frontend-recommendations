@@ -9,6 +9,19 @@
         <referenceContainer name="Klevu_Frontend.before.body.end">
             <block name="klevu_frontend_recommendations.recommendations_widget_cls"
                    template="Klevu_FrontendRecommendations::widget/recommendations-cls.phtml"/>
+
+            <block name="Klevu_FrontendRecommendations.customer_group_suffix"
+                   template="Klevu_FrontendRecommendations::html/head/customer_group_suffix.phtml"
+                   before="Klevu_Frontend.session_data"
+                   after="Klevu_Frontend.customer_group_suffix">
+                <arguments>
+                    <argument name="customer_group_suffix_view_model"
+                              xsi:type="object">Klevu\FrontendRecommendations\ViewModel\Html\Head\CustomerGroupSuffix</argument>
+                    <argument name="escaper_view_model"
+                              xsi:type="object">Klevu\Frontend\ViewModel\Escaper</argument>
+                </arguments>
+            </block>
+
         </referenceContainer>
     </body>
 </page>

@@ -33,7 +33,7 @@ class IsRecommendationsEnabledOutputTest extends AbstractController
     /**
      * @var string|null
      */
-    private ?string $pattern = '#<script[.\s]*type="text&\#x2F;javascript"[.\s]*id="klevu_recommendations"[.\s]*src="https&\#x3A;&\#x2F;&\#x2F;js\.klevu\.com&\#x2F;recs&\#x2F;v2&\#x2F;klevu-recs\.js"[.\s]*>[.\s]*</script>#'; // phpcs:ignore Generic.Files.LineLength.TooLong
+    private ?string $pattern = '#<script[.\s]*type="text&\#x2F;javascript"[.\s]*id="klevu_recommendations"[.\s]*src="https&\#x3A;&\#x2F;&\#x2F;js\.klevu\.com&\#x2F;recs&\#x2F;v2&\#x2F;klevu-recs.*\.js"[.\s]*>[.\s]*</script>#'; // phpcs:ignore Generic.Files.LineLength.TooLong
     /**
      * @var ObjectManagerInterface|null
      */
