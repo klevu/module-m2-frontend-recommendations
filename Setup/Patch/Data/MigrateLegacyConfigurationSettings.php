@@ -101,7 +101,9 @@ class MigrateLegacyConfigurationSettings implements DataPatchInterface
             foreach ($scopeValues as $scopeId => $value) {
                 $this->configWriter->save(
                     path: $toPath,
-                    value: $mapValues[$value] ?? $value,
+                    value: null !== $value
+                        ? ($mapValues[$value] ?? $value)
+                        : null,
                     scope: $scope,
                     scopeId: $scopeId,
                 );
